@@ -305,7 +305,7 @@ class UriGenerate
     {
         $orig_scheme = $scheme;
         if (! in_array($scheme, $this->supportSchemes())) {
-            $scheme = (is_ssl() ? 'https' : 'http');
+            $scheme = $this->getUrlScheme($url);
         }
 
         $url = trim($url);
