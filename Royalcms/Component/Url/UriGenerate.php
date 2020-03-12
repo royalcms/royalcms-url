@@ -140,7 +140,7 @@ class UriGenerate
          *
          * @param string $url The complete home URL including scheme and path.
          */
-        return RC_Hook::apply_filters('original_home_url', $url);
+        return RC_Hook::apply_filters('original_home_url', $home_url);
     }
 
     /**
@@ -211,6 +211,7 @@ class UriGenerate
     {
         $orig_scheme = $scheme;
         $url = $this->originalHomeUrl();
+
         if (empty($scheme)) {
             $scheme = $this->getUrlScheme($url);
         }
@@ -478,6 +479,36 @@ class UriGenerate
          * @param string $path Path relative to the admin area URL. Blank string if no path is specified.
          */
         return RC_Hook::apply_filters('admin_url', $url, $path);
+    }
+
+    /**
+     * Retrieve the url to the upload area for the current site.
+     *
+     * @since 3.0.0
+     *
+     * @param string $path Optional path relative to the admin url.
+     * @param string $scheme The scheme to use. Default is '', which obeys is_ssl(). 'http' or 'https' can be passed to force those schemes.
+     * @return string Upload url link with optional path appended.
+     */
+    public function originalUploadUrl($path = '', $scheme = null)
+    {
+        $url = $this->homeContentUrl('uploads/', $scheme);
+
+        $url = rtrim($url, '/');
+
+        if ($path && is_string($path)) {
+            $url .= '/' . ltrim($path, '/');
+        }
+
+        /**
+         * Filter the admin area URL.
+         *
+         * @since 3.0.0
+         *
+         * @param string $url The complete admin area URL including scheme and path.
+         * @param string $path Path relative to the admin area URL. Blank string if no path is specified.
+         */
+        return RC_Hook::apply_filters('original_upload_url', $url, $path);
     }
 
 }

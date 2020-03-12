@@ -648,6 +648,20 @@ class Uri extends RoyalcmsObject
 //         */
 //        return RC_Hook::apply_filters('admin_url', $url, $path);
     }
+
+    /**
+     * Retrieve the url to the upload area for the current site.
+     *
+     * @since 3.0.0
+     *
+     * @param string $path Optional path relative to the admin url.
+     * @param string $scheme The scheme to use. Default is '', which obeys is_ssl(). 'http' or 'https' can be passed to force those schemes.
+     * @return string Upload url link with optional path appended.
+     */
+    public static function original_upload_url($path = '', $scheme = '')
+    {
+        return UriGenerate::create()->originalUploadUrl($path, $scheme);
+    }
     
     /**
      * Retrieve the url to the admin static area for the current site.
