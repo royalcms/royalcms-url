@@ -783,6 +783,18 @@ class Uri extends RoyalcmsObject
 //        return RC_Hook::apply_filters('vendor_url', $url, $path);
     }
 
+    public static function __callstatic($name, $params)
+    {
+        static $uri;
+        $uri = UriGenerate::create();
+
+        if (method_exists($uri, $name)) {
+            return $uri->$name(...$params);
+        }
+
+        return parent::__callstatic($name, $params);
+    }
+
     /**
      * Retrieve the url to the admin area for the current site.
      *
