@@ -431,14 +431,14 @@ class UriGenerate
      */
     public function assetUrl($path = '', $scheme = 'asset')
     {
-        $url = $this->homeContentUrl('assets/', $scheme);
+        $url = $this->contentUrl('assets/', $scheme);
 
         $url = rtrim($url, '/');
 
         if ($path && is_string($path)) {
             $url .= '/' . ltrim($path, '/');
         }
-
+        
         /**
          * Filter the admin area URL.
          *
