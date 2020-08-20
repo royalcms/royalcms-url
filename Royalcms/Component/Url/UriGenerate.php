@@ -438,7 +438,37 @@ class UriGenerate
         if ($path && is_string($path)) {
             $url .= '/' . ltrim($path, '/');
         }
-        
+
+        /**
+         * Filter the admin area URL.
+         *
+         * @since 3.0.0
+         *
+         * @param string $url The complete admin area URL including scheme and path.
+         * @param string $path Path relative to the admin area URL. Blank string if no path is specified.
+         */
+        return RC_Hook::apply_filters('asset_url', $url, $path);
+    }
+
+    /**
+     * Retrieve the url to the admin static area for the current site.
+     *
+     * @since 3.4.0
+     *
+     * @param string $path Optional path relative to the admin url.
+     * @param string $scheme The scheme to use. Default is 'admin', which obeys force_ssl_admin() and is_ssl(). 'http' or 'https' can be passed to force those schemes.
+     * @return string Admin url link with optional path appended.
+     */
+    public function homeAssetUrl($path = '', $scheme = 'asset')
+    {
+        $url = $this->homeContentUrl('assets/', $scheme);
+
+        $url = rtrim($url, '/');
+
+        if ($path && is_string($path)) {
+            $url .= '/' . ltrim($path, '/');
+        }
+
         /**
          * Filter the admin area URL.
          *
