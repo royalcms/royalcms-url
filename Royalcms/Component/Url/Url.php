@@ -62,7 +62,8 @@ class Url implements UriInterface
         $url->user = isset($parts['user']) ? $parts['user'] : '';
         $url->password = isset($parts['pass']) ? $parts['pass'] : null;
         $url->path = isset($parts['path']) ? $parts['path'] : '/';
-        $url->pathinfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+//        $url->pathinfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+        $url->pathinfo = isset($parts['path_info']) ? $_SERVER['path_info'] : '';
         $url->query = QueryParameterBag::fromString(isset($parts['query']) ? $parts['query'] : '');
         $url->fragment = isset($parts['fragment']) ? $parts['fragment'] : '';
 
